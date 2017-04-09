@@ -1,0 +1,47 @@
+/*
+ * This file defines Data table styling, mainly for php output
+ */
+
+/* Global table data */
+table.data {
+	border: 2px solid #d32300;
+	border-collapse: collapse;
+}
+
+
+
+/* Styling per row */
+table.data tr {
+	background-color: #eeeeee;
+	color: #000000;
+	
+}
+
+/* Rows when hovered on */
+table.data tr:hover {
+	background-color: #dddddd;
+}
+
+/* The first row */
+table.data tr:first-child {
+	background-color: #d32300;
+	color: #fff;
+	font-weight: bold;
+	font-style: italic;
+}
+
+/* Hovering on cell in first row */
+table.data tr:first-child td:hover {
+	background-color: #ce1e00;
+}
+
+
+/* Styling per cell */
+table.data tr td {
+	padding: 15px;
+}
+
+/* Cells when hovered on */
+table.data tr td:hover {
+	background-color: #cccccc;
+}

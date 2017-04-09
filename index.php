@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 
 	include("connect.php"); 	
@@ -8,13 +9,19 @@
 ?>
 
 <html>
-   <head>
-      <title>Battery Log</title>
-   </head>
+<head>
+	<title>Battery Log</title>
+	<link rel="stylesheet" type="text/css" href="/theme.css" />
+</head>
+
+
+
 <body>
+<?php include("/header.php"); ?>
+
    <h1>Battery Log</h1>
 
-   <table border="1" cellspacing="1" cellpadding="1">
+   <table class="data">
 		<tr>
 			<td>&nbsp;Timestamp&nbsp;</td>
 			<td>&nbsp;Class&nbsp;</td>
