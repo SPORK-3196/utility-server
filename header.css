@@ -1,0 +1,68 @@
+/* Remove natural page margins and padding */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+/* The styling of the header bar and navmenu */
+#header, #navmenu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #d32300;
+}
+
+/* Give the navmenu spacing from the left */
+#navmenu {
+	margin-left: 5%;
+}
+
+/* Make list items in the navmenu appear as blocks */
+#navmenu > li {
+	display: inline-block;
+	float: left;
+}
+
+/* Display list links as blocks */
+#navmenu > li > a {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+/* Change button background when hovered */
+#navmenu > li > a:hover {
+	background-color: #b10100;
+}
+
+/* The div that "drops down" */
+.dropdown div {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	index: 1;
+}
+
+/* Style the button on the drop down */
+.dropdown div a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+/* When one of the drop down buttons is hovered on */
+.dropdown div a:hover {
+	background-color: #f1f1f1;
+}
+
+/* show the dropdown when hovered on */
+.dropdown:hover div {
+	display: block;
+}
