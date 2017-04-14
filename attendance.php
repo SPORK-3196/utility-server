@@ -38,8 +38,11 @@
 			if($mResult!==FALSE) {
 				$mRow = mysql_fetch_array($mResult);
 			}
+			if($aRow["io"]==0){$io="Out";}
+			else if($aRow["io"]==1){$io="In";}
+			else{$io="-";}
 		        printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td>",
-		           $aRow["entryDate"], $mRow["fName"], $mRow["lName"], $aRow["io"]);
+		           $aRow["entryDate"], $mRow["fName"], $mRow["lName"], $io);
 		     }
 		     mysql_free_result($result);
 		     mysql_close();
