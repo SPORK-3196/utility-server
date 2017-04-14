@@ -14,7 +14,7 @@
 	if($result!==FALSE) {
 		$row = mysql_fetch_array($result);
 		echo $row["fName"];
-		echo ",\n";
+		echo "\n";
 		echo $row["lName"];
 	} else {
 		echo "Bad DB";
