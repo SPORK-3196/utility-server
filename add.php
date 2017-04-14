@@ -1,6 +1,6 @@
 <?php
    	include("connect.php");
-	
+
 	function getClass($class) {
 		switch($class) {
 			case 0:
@@ -54,11 +54,17 @@
 				return "RBT->CHG";
 				break;
 			case 6:
+				return "CHG->STR";
+				break;
+			case 7:
+				return "STR->CHG";
+				break;
+			case 8:
 				return "Checkup";
 				break;
 		}
 	}
-	
+
    	$link=Connection();
 
 	$class=getClass($_POST["class"]);
@@ -73,7 +79,7 @@
 
 	$query = "INSERT INTO BatteryData (class, id, status, charge, v0, v1, v2, rint, event) 
 		VALUES ('".$class."','".$id."','".$status."','".$charge."','".$v0."','".$v1."','".$v2."','".$rint."','".$event."')"; 
-   	
+
    	mysql_query($query,$link);
 	mysql_close($link);
 
