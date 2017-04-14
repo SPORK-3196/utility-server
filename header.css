@@ -4,6 +4,12 @@ body {
 	padding: 0;
 }
 
+/* The styling of just the header */
+#header {
+	animation-name: header_appear;
+	animation-duration: 1s;
+}
+
 /* The styling of the header bar and navmenu */
 #header, #navmenu {
 	list-style-type: none;
@@ -45,7 +51,7 @@ body {
 	background-color: #f9f9f9;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	index: 1;
+	z-index: -1;
 }
 
 /* Style the button on the drop down */
@@ -65,4 +71,22 @@ body {
 /* show the dropdown when hovered on */
 .dropdown:hover div {
 	display: block;
+	animation-name: drop_down;
+	animation-duration: 0.5s;
+}
+
+
+/**************/
+/* ANIMATIONS */
+/**************/
+/* Makes the header appear */
+@keyframes header_appear {
+	0%	{ margin-top: -5%; }
+	100%	{ margin-top: 0%; }
+}
+
+/* Animates the dropdown */
+@keyframes drop_down {
+	0%	{ margin-top: -10%; }
+	100%	{ margin-top: 0%; }
 }

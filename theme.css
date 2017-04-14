@@ -1,6 +1,11 @@
 /*
  * This file defines Data table styling, mainly for php output
  */
+/* The body of the page */
+div#tablebody {
+	margin-left: 2.5%;
+	float: left;
+}
 
 /* Global table data */
 table.data {
@@ -44,4 +49,34 @@ table.data tr td {
 /* Cells when hovered on */
 table.data tr td:hover {
 	background-color: #cccccc;
+}
+
+
+/************************/
+/* BATTERY FORM STYLING */
+/************************/
+/* Makes form box stay fixed on the right */
+#formbox {
+	float: right;
+	margin-right: 2.5%;
+	margin-left: 2.5%;
+	animation-name: box_slide;
+	animation-duration: 2s;
+}
+
+/* Styles the form itself */
+form {
+	background: #eeeeee;
+	padding: 4px;
+}
+
+#formbox h1 {
+	color: #000000;
+}
+
+/* Animation for sliding the battery form in on page load */
+@keyframes box_slide {
+	0%	{ margin-right: -25%; }
+	33%	{ margin-right: -25%; }
+	100%	{ margin-right: 2.5%%; }
 }
