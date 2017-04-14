@@ -55,13 +55,18 @@ table.data tr td:hover {
 /************************/
 /* BATTERY FORM STYLING */
 /************************/
-/* Makes form box stay fixed on the right */
+/* If the screen is large enough, make form box anchored to the right*/
+@media screen and (min-width: 1600px){
+	#formbox {
+		float: right;
+		margin-right: 2.5%;
+		margin-left: 2.5%;
+		animation-name: box_slide;
+		animation-duration: 2s;
+	}
+}
 #formbox {
-	float: right;
-	margin-right: 2.5%;
-	margin-left: 2.5%;
-	animation-name: box_slide;
-	animation-duration: 2s;
+	
 }
 
 /* Styles the form itself */
@@ -72,6 +77,10 @@ form {
 
 #formbox h1 {
 	color: #000000;
+}
+
+input[type="submit"] {
+	float: right;
 }
 
 /* Animation for sliding the battery form in on page load */

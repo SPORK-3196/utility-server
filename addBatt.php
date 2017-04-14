@@ -83,5 +83,5 @@
    	mysql_query($query,$link);
 	mysql_close($link);
 
-   	header("Location: batteries.php");
+   	header("Location: /batteries.php");
 ?>

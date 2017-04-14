@@ -6,9 +6,20 @@
 	$tagID=$_POST["tagID"];
 
 	$query = "INSERT INTO AttendanceData (tagID) VALUES (".$tagID.")";
-
    	mysql_query($query,$link);
-	mysql_close($link);
 
-   	header("Location: attendance.php");
+	$query = "SELECT * FROM members WHERE tagID=".$tagID;
+	$result = mysql_query($query,$link);
+
+	if($result!==FALSE) {
+		$row = mysql_fetch_array($result);
+		echo $row["fName"];
+		echo ",\n";
+		echo $row["lName"];
+	} else {
+		echo "Bad DB";
+	}
+
+	mysql_free_result($result);
+	mysql_close($link);
 ?>
