@@ -4,8 +4,18 @@
 	include("connect.php");
 
 	$link=Connection();
+	$key = 0;
 
-	$aResult=mysql_query("SELECT * FROM `AttendanceData` ORDER BY `entryDate` DESC",$link);
+	if($_GET["s"]=="") {
+		$aResult=mysql_query("SELECT * FROM `AttendanceData` ORDER BY `id` DESC",$link);
+	} else {
+		$r=mysql_query("SELECT * FROM `members` WHERE fName='".$_GET["s"]."'",$link);
+		if($r!==FALSE) {
+			$rRow = mysql_fetch_array($r);
+			$key = $rRow["tagID"];
+		}
+		$aResult=mysql_query("SELECT * FROM `AttendanceData` WHERE tagID='".$key."' ORDER BY `entryDate` DESC",$link);
+	}
 ?>
 
 <html>
@@ -19,6 +29,10 @@
 
 <body>
 <?php include("header.php"); ?>
+
+	<form action="attendance.php" method="get">
+		Search: <input type="text" name="s">
+	</form>
 
    <div id="tablebody">
       <h1>Attendance Log</h1>

@@ -5,7 +5,11 @@
 
 	$link=Connection();
 
-	$result=mysql_query("SELECT * FROM `BatteryData` ORDER BY `entryDate` DESC",$link);
+	/*if($_GET["s"]=="") {*/
+		$result=mysql_query("SELECT * FROM `BatteryData` ORDER BY `entryDate` DESC",$link);
+	/*} else {
+		
+	}*/
 ?>
 
 <html>

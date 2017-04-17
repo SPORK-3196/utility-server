@@ -5,6 +5,7 @@ echo <<< HEADER_END
 	<ul id="navmenu">
 		<li><a href="index.php">Home</a></li>
 		<li><a href="batteries.php">Batteries</a></li>
+		<li><a href="attendance.php">Attendance</a></li>
 		<li class="dropdown"><a href="#" class="dropbtn">Dropdown Test</a>
 			<div>
 				<a href="#">Link 1</a>

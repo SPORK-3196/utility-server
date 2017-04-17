@@ -2,12 +2,13 @@
 body {
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
 }
 
 /* The styling of just the header */
 #header {
 	animation-name: header_appear;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 }
 
 /* The styling of the header bar and navmenu */
@@ -51,7 +52,6 @@ body {
 	background-color: #f9f9f9;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: -1;
 }
 
 /* Style the button on the drop down */
