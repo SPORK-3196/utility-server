@@ -4,7 +4,7 @@
 
 <html>
 <head>
-	<title>Battery Log</title>
+	<title>SPORKshop</title>
 	<link rel="stylesheet" type="text/css" href="theme.css" />
 	<link rel="stylesheet" type="text/css" href="header.css" />
 </head>
