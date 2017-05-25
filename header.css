@@ -7,6 +7,10 @@ body {
 
 /* The styling of just the header */
 #header {
+	position: fixed;
+	width: 100%;
+	height: 46px;
+	z-index: 5;
 	animation-name: header_appear;
 	animation-duration: 0.5s;
 }
@@ -23,6 +27,7 @@ body {
 /* Give the navmenu spacing from the left */
 #navmenu {
 	margin-left: 5%;
+	float: left;
 }
 
 /* Make list items in the navmenu appear as blocks */
@@ -48,7 +53,8 @@ body {
 /* The div that "drops down" */
 .dropdown div {
 	display: none;
-	position: absolute;
+	position: fixed;
+	z-index: -1;
 	background-color: #f9f9f9;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -73,6 +79,25 @@ body {
 	display: block;
 	animation-name: drop_down;
 	animation-duration: 0.5s;
+}
+
+/* Style the section of the header conatining the search */
+#header form {
+	margin-left: 75%;
+	width: 20%;
+	padding: none;
+	position: fixed;
+	z-index: 5;
+	background-color: inherit;
+}
+
+/* The search text box */
+#header input[type="text"] {
+	width: 100%;
+	border-radius: 3px;
+	border: none;
+	margin-top: 6px;
+	padding: 4px 6px;
 }
 
 

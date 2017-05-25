@@ -13,7 +13,14 @@ echo <<< HEADER_END
 			</div>
 		</li>
 	</ul>
+
+	<form action="/search.php" method="GET">
+		<input name="q" type="text" placeholder="Search">
+	</form>
 </div>
+
+<!-- Pushes the page down to make sure the header doesn't cover content -->
+<div style="height: 46px;"></div>
 
 HEADER_END
 ?>
