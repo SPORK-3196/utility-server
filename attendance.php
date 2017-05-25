@@ -12,9 +12,9 @@
 		$r=mysql_query("SELECT * FROM `members` WHERE fName='".$_GET["s"]."'",$link);
 		if($r!==FALSE) {
 			$rRow = mysql_fetch_array($r);
-			$key = $rRow["tagID"];
+			$key = $rRow["id"];
 		}
-		$aResult=mysql_query("SELECT * FROM `AttendanceData` WHERE tagID='".$key."' ORDER BY `entryDate` DESC",$link);
+		$aResult=mysql_query("SELECT * FROM `AttendanceData` WHERE memberID='".$key."' ORDER BY `entryDate` DESC",$link);
 	}
 ?>
 
@@ -48,7 +48,7 @@
          <?php
 		  if($aResult!==FALSE) {
 		     while($aRow = mysql_fetch_array($aResult)) {
-			$mResult=mysql_query("SELECT * FROM `members` WHERE tagID=$aRow[tagID]",$link);
+			$mResult=mysql_query("SELECT * FROM `members` WHERE id=$aRow[memberID]",$link);
 			if($mResult!==FALSE) {
 				$mRow = mysql_fetch_array($mResult);
 			}

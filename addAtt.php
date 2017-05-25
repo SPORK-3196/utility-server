@@ -1,13 +1,29 @@
 <?php
    	include("connect.php");
 
-   	$link=Connection();
+	// Establishes a connection with MySQL and reads the tagID
+   	$link = Connection();
+	$tagID = $_POST["tagID"];
 
-	$tagID=$_POST["tagID"];
+
+
+	// Finds the member with the given tag
+	$memresults = mysql_query("SELECT * FROM members WHERE tagID=".$tagID.";", $link);
+	if ($memresults !== FALSE) {
+		$memrow = mysql_fetch_array($memresults);
+		$memberID = $memrow[id];
+	} else die("Card not found");
+
+
+
 	$io = 2;
 	$oio = 2;
 
-	$query = "SELECT * FROM AttendanceData WHERE tagID=".$tagID." ORDER BY entryDate DESC";
+
+
+	// Loads all the attendence logs, to find whether the previous entry
+	// for this member was arrival or departure
+	$query = "SELECT * FROM AttendanceData WHERE memberID=".$memberID." ORDER BY entryDate DESC";
 	$result = mysql_query($query,$link);
 	if($result!==FALSE) {
 		$row = mysql_fetch_array($result);
@@ -18,10 +34,16 @@
 		$io=2;
 	}
 
-	$query = "INSERT INTO AttendanceData (tagID,io) VALUES (".$tagID.",".$io.")";
+
+
+	// Adds the members' arrival/departure to the logs
+	$query = "INSERT INTO AttendanceData (memberID,io) VALUES (".$memberID.",".$io.")";
 	mysql_query($query,$link);
 
-	$query = "SELECT * FROM members WHERE tagID=".$tagID;
+
+
+	// Finds again the member with the given tag
+	$query = "SELECT * FROM members WHERE id=$memberID";
 	$result = mysql_query($query,$link);
 
 	if($result!==FALSE) {
@@ -36,11 +58,11 @@
 				$mResult = mysql_query($mQuery,$link);
 				if($mResult!==FALSE) {
 					while($mRow = mysql_fetch_array($mResult)) {
-						$aQuery = "SELECT * FROM AttendanceData WHERE tagID=".$mRow["tagID"]." ORDER BY id DESC";							$aResult = mysql_query($aQuery,$link);
+						$aQuery = "SELECT * FROM AttendanceData WHERE memberID=".$mRow["memberID"]." ORDER BY id DESC";							$aResult = mysql_query($aQuery,$link);
 						if($aResult!==FALSE) {
 							$aRow = mysql_fetch_array($aResult);
 							if($aRow["io"]==1) {
-								$fQuery = "INSERT INTO AttendanceData (tagID,io) VALUES (".$mRow["tagID"].",0)";
+								$fQuery = "INSERT INTO AttendanceData (memberID,io) VALUES (".$mRow["memberID"].",0)";
 								mysql_query($fQuery,$link);
 							}
 						}
