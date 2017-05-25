@@ -27,6 +27,13 @@
 		<input type="submit">
 	</form>
 
+      <h1>Deregister Tag</h1>
+	<form action="deregisterTag.php" method="post">
+		First Name: <input type="text" name="fName" maxlength="16"> <br>
+		Last Name: <input type="text" name="lName" maxlength="16">
+		<input type="submit">
+	</form>
+
       <h1>Tag List</h1>
 
       <table class="data">
