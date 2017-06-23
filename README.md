@@ -1,13 +1,12 @@
 # README #
-This Raspberry Pi LAMP server ties together the subsystems of the SPORKshop together.
 
-### What is this repository for? ###
+### About ###
+Pi Server is the Raspberry Pi LAMP server that ties together the subsystems of the SPORKshop.
 * Version 1.0.0
 
 ### Setting it up ###
-* Install a headless Raspbian build on a Pi
+* Install a Raspbian build on a Raspberry Pi
 * Install Apache, PHP, and MySQL
-* Download source, and use FTP to transfer to Pi
-* Move source files to /var/www/html/ directory
-* Connect Pi to a router (configure IP)
-* Connect all other systems, modify for Pi IP
+* Place Pi Server source files in /var/www/html/ directory
+
+The Pi Server is now ready to be used. Make sure all subsystems have been configured properly for the Pi's IP Address.
