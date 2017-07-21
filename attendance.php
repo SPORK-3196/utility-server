@@ -6,15 +6,22 @@
 	$link=Connection();
 	$key = 0;
 
+	// If no given attendance parameter, show all
 	if($_GET["s"]=="") {
-		$aResult=mysql_query("SELECT * FROM `AttendanceData` ORDER BY `id` DESC",$link);
-	} else {
-		$r=mysql_query("SELECT * FROM `members` WHERE fName='".$_GET["s"]."'",$link);
+		$aResult = $link->query("SELECT * FROM `AttendanceData` ORDER BY `id` DESC");
+		//while ($row = $aResult->fetch_assoc()) {
+		//	printf ("%s (%s)\n", $row["memberID"], $row["io"]);
+		//}
+	}
+	// Otherwise, show attendence data for the given member
+	else {
+		$r = $link->query("SELECT * FROM `members` WHERE fName='".$_GET["s"]."'");
 		if($r!==FALSE) {
-			$rRow = mysql_fetch_array($r);
+			$rRow = $r->fetch_array();
 			$key = $rRow["id"];
+			$r->close();
 		}
-		$aResult=mysql_query("SELECT * FROM `AttendanceData` WHERE memberID='".$key."' ORDER BY `entryDate` DESC",$link);
+		$aResult = $link->query("SELECT * FROM `AttendanceData` WHERE memberID='".$key."' ORDER BY `entryDate` DESC");
 	}
 ?>
 
@@ -46,21 +53,30 @@
 		</tr>
 
          <?php
-		  if($aResult!==FALSE) {
-		     while($aRow = mysql_fetch_array($aResult)) {
-			$mResult=mysql_query("SELECT * FROM `members` WHERE id=$aRow[memberID]",$link);
-			if($mResult!==FALSE) {
-				$mRow = mysql_fetch_array($mResult);
+		if($aResult!==FALSE) {
+			while($aRow = $aResult->fetch_assoc()) {
+
+				$mResult = $link->query("SELECT * FROM members WHERE id=$aRow[memberID]");
+				$mRow = $mResult->fetch_assoc();
+
+				if($aRow["io"]==0){$io="Out";}
+				else if($aRow["io"]==1){$io="In";}
+				else{$io="-";}
+				printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td>",
+					$aRow["entryDate"], $mRow["fName"], $mRow["lName"], $io);
+
+				
+				$mResult->free();
 			}
-			if($aRow["io"]==0){$io="Out";}
-			else if($aRow["io"]==1){$io="In";}
-			else{$io="-";}
-		        printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td>",
-		           $aRow["entryDate"], $mRow["fName"], $mRow["lName"], $io);
-		     }
-		     mysql_free_result($result);
-		     mysql_close();
-		  }
+			$aResult->free();
+		}
+
+		else {
+		echo "No results found";
+		}
+
+
+		$link->close();
          ?>
 
       </table>

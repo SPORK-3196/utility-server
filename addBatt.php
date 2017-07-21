@@ -65,23 +65,23 @@
 		}
 	}
 
-   	$link=Connection();
+   	$link = Connection();
 
-	$class=getClass($_POST["class"]);
-	$id=$_POST["id"];
-	$status=getStatus($_POST["status"]);
-	$charge=$_POST["charge"];
-	$v0=$_POST["v0"]/1000;
-	$v1=$_POST["v1"]/1000;
-	$v2=$_POST["v2"]/1000;
-	$rint=$_POST["rint"]/1000;
-	$event=getEvent($_POST["event"]);
+	$class = getClass($_POST["class"]);
+	$id = $_POST["id"];
+	$status = getStatus($_POST["status"]);
+	$charge = $_POST["charge"];
+	$v0 = $_POST["v0"]/1000;
+	$v1 = $_POST["v1"]/1000;
+	$v2 = $_POST["v2"]/1000;
+	$rint = $_POST["rint"]/1000;
+	$event = getEvent($_POST["event"]);
 
 	$query = "INSERT INTO BatteryData (class, id, status, charge, v0, v1, v2, rint, event) 
 		VALUES ('".$class."','".$id."','".$status."','".$charge."','".$v0."','".$v1."','".$v2."','".$rint."','".$event."')"; 
 
-   	mysql_query($query,$link);
-	mysql_close($link);
+   	$link->query($query);
+	$link->close();
 
-   	header("Location: /batteries.php");
+   	header("Location: batteries.php");
 ?>

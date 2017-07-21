@@ -8,9 +8,9 @@
 
 
 	// Finds the member with the given tag
-	$memresults = mysql_query("SELECT * FROM members WHERE tagID=".$tagID.";", $link);
+	$memresults = $link->query("SELECT * FROM members WHERE tagID=".$tagID.";");
 	if ($memresults !== FALSE) {
-		$memrow = mysql_fetch_array($memresults);
+		$memrow = $memresults->fetch_assoc();
 		$memberID = $memrow[id];
 	} else die("Card not found");
 
@@ -24,9 +24,9 @@
 	// Loads all the attendence logs, to find whether the previous entry
 	// for this member was arrival or departure
 	$query = "SELECT * FROM AttendanceData WHERE memberID=".$memberID." ORDER BY entryDate DESC";
-	$result = mysql_query($query,$link);
+	$result = $link->query($query);
 	if($result!==FALSE) {
-		$row = mysql_fetch_array($result);
+		$row = $results->fetch_assoc();
 		if($row["io"]==0){$io=1;}
 		else if($row["io"]==1){$io=0;}
 		else {$io=0;}
@@ -38,16 +38,16 @@
 
 	// Adds the members' arrival/departure to the logs
 	$query = "INSERT INTO AttendanceData (memberID,io) VALUES (".$memberID.",".$io.")";
-	mysql_query($query,$link);
+	$link->query($query);
 
 
 
 	// Finds again the member with the given tag
 	$query = "SELECT * FROM members WHERE id=$memberID";
-	$result = mysql_query($query,$link);
+	$result = $link->query($query);
 
 	if($result!==FALSE) {
-		$row = mysql_fetch_array($result);
+		$row = $result->fetch_assoc();
 		if($row["fName"]=="Master" && $row["lName"]=="Key") {
 			$io+=3;
 			echo "SPORKshop";
@@ -55,15 +55,15 @@
 			if($io==4) {echo "open";}
 			if($io==3) {
 				$mQuery = "SELECT * FROM members";
-				$mResult = mysql_query($mQuery,$link);
+				$mResult = $link->query($mQuery);
 				if($mResult!==FALSE) {
-					while($mRow = mysql_fetch_array($mResult)) {
-						$aQuery = "SELECT * FROM AttendanceData WHERE memberID=".$mRow["memberID"]." ORDER BY id DESC";							$aResult = mysql_query($aQuery,$link);
+					while($mRow = $mResults->fetch_assoc()) {
+						$aQuery = "SELECT * FROM AttendanceData WHERE memberID=".$mRow["memberID"]." ORDER BY id DESC";							$aResult = $link->query($aQuery);
 						if($aResult!==FALSE) {
-							$aRow = mysql_fetch_array($aResult);
+							$aRow = $aResult->fetch_assoc();
 							if($aRow["io"]==1) {
 								$fQuery = "INSERT INTO AttendanceData (memberID,io) VALUES (".$mRow["memberID"].",0)";
-								mysql_query($fQuery,$link);
+								$link->query($fQuery);
 							}
 						}
 					}
@@ -81,8 +81,8 @@
 		echo "Bad DB";
 	}
 
-	mysql_free_result($aResult);
-	mysql_free_result($mResult);
-	mysql_free_result($result);
-	mysql_close($link);
+	$aResult->free();
+	$mResult->free();
+	$result->free();
+	$link->close();
 ?>

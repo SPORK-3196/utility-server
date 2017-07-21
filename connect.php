@@ -6,14 +6,13 @@
 		$pass="PLACEHOLDER_Pass";
 		$db="PLACEHOLDER_DB";
 	   	
-		$connection = mysql_connect($server, $user, $pass);
 
-		if (!$connection) {
-	    	die('MySQL ERROR: ' . mysql_error());
+		$mysqli = new mysqli($server, $user, $pass, $db);
+
+		if ($mysqli->connect_errno) {
+			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		}
-		
-		mysql_select_db($db) or die( 'MySQL ERROR: '. mysql_error() );
 
-		return $connection;
+		return $mysqli;
 	}
 ?>

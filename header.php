@@ -1,6 +1,3 @@
-<?php
-echo <<< HEADER_END
-
 <div id="header">
 	<ul id="navmenu">
 		<li><a href="index.php">Home</a></li>
@@ -14,13 +11,10 @@ echo <<< HEADER_END
 		</li>
 	</ul>
 
-	<form action="/search.php" method="GET">
+	<form action="search.php" method="GET">
 		<input name="q" type="text" placeholder="Search">
 	</form>
 </div>
 
 <!-- Pushes the page down to make sure the header doesn't cover content -->
 <div style="height: 46px;"></div>
-
-HEADER_END
-?>

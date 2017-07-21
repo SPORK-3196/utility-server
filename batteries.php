@@ -6,7 +6,7 @@
 	$link=Connection();
 
 	/*if($_GET["s"]=="") {*/
-		$result=mysql_query("SELECT * FROM `BatteryData` ORDER BY `entryDate` DESC",$link);
+		$result = $link->query("SELECT * FROM `BatteryData` ORDER BY `entryDate` DESC");
 	/*} else {
 		
 	}*/
@@ -25,7 +25,7 @@
 <?php include("header.php"); ?>
    <div id="formbox">
       <h1>Add Entry</h1>
-      <form action="add.php" method="post">
+      <form action="addBatt.php" method="post">
          Class: <input type="text" name="class" maxlength="1">
          ID: <input type="number" name="id" min="0" max="15"> <br>
          Status: <input type="radio" name="status" value=0> Good
@@ -69,12 +69,13 @@
 
          <?php
 		  if($result!==FALSE){
-		     while($row = mysql_fetch_array($result)) {
+		     while($row = $result->fetch_assoc()) {
 		        printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td></tr>", 
 		           $row["entryDate"], $row["class"], $row["id"], $row["status"], $row["charge"], $row["v0"], $row["v1"], $row["v2"], $row["rint"], $row["event"]);
 		     }
-		     mysql_free_result($result);
-		     mysql_close();
+
+		     $result->free();
+		     $results->close();
 		  }
          ?>
 
