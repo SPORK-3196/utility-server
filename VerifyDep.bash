@@ -69,9 +69,10 @@ fi
 
 
 # PHP
-if ! verify_program "php5"; then
+if ! verify_program "php"; then
 	if install_program "PHP"; then
-		sudo apt-get install php5 php-pear php5-mysql
+		sudo apt-get install php libapache2-mod-php php-mcrypt php-mysql
+		# RASPBERRY PI: sudo apt-get install php5 php-pear php5-mysql
 		DEP_INSTALLED=0
 	else
 		ALL_INSTALLED=1
