@@ -2,9 +2,9 @@
 
 	function Connection(){
 		$server="localhost";
-		$user="php-user";
-		$pass="php";
-		$db="SPORKdata";
+		$user="PLACEHOLDER_User";
+		$pass="PLACEHOLDER_Pass";
+		$db="PLACEHOLDER_DB";
 	   	
 		$connection = mysql_connect($server, $user, $pass);
 
