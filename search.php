@@ -25,7 +25,7 @@
 		if ($q == "")
 		{
 			echo "<h1> Query Not Found </h1>";
-			echo "<p> \"Nothing\" does not exist in our databases </p>";
+			echo "<p> Nothing does not exist in our databases </p>";
 			exit();
 		}
 	?>
@@ -34,7 +34,7 @@
 
 	<?php
 		// Get any members matching the search
-		$results = $link->query("SELECT * FROM `members` WHERE fName LIKE '%$q%' OR lName LIKE '%$q%';");
+		$results = mysql_query("SELECT * FROM `members` WHERE fName LIKE '%$q%' OR lName LIKE '%$q%';");
 
 		// Print any members
 		if ($results !== FALSE) { ?>
@@ -45,11 +45,11 @@
 				<td> Name </td>
 			</tr>
 
-			<?php while($row = $results->fetch_assoc()) {
+			<?php while($row = mysql_fetch_array($results)) {
 				printf("<tr><td> %s </td></tr>",
 				$row["fName"] . " " . $row["lName"]);
 			}
-			$results->free();
+			mysql_free_result($results);
 
 			?> </table> <?php
 		}
@@ -60,7 +60,7 @@
 		// Get any Attendence instances matching the search
 	?>
 
-	<?php $link->close(); ?>
+	<?php mysql_close(); ?>
 </div>
 </body>
 </html>

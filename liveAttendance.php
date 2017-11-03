@@ -19,6 +19,7 @@
 ?>
 
 <html>
+<meta http-equiv="refresh" content="1; URL=liveAttendance.php">
 <head>
 	<title>Attendance Log</title>
 	<link rel="stylesheet" type="text/css" href="theme.css" />
@@ -28,36 +29,25 @@
 
 
 <body>
-<?php include("header.php"); ?>
-
-	<form action="attendance.php" method="get">
-		Search: <input type="text" name="s">
-	</form>
-
    <div id="tablebody">
-      <h1>Attendance Log</h1>
+      <h1>Live Attendance</h1>
 
       <table class="data">
 		<tr>
-			<td>&nbsp;Timestamp&nbsp;</td>
 			<td>&nbsp;First Name&nbsp;</td>
 			<td>&nbsp;Last Name&nbsp;</td>
-			<td>&nbsp;In/Out&nbsp;</td>
 		</tr>
 
          <?php
 		  if($aResult!==FALSE) {
-		     while($aRow = mysql_fetch_array($aResult)) {
+		     $aRow = mysql_fetch_array($aResult);
 			$mResult=mysql_query("SELECT * FROM `members` WHERE id=$aRow[memberID]",$link);
-			if($mResult!==FALSE) {
-				$mRow = mysql_fetch_array($mResult);
+			if($mResult!==FALSE) { $mRow = mysql_fetch_array($mResult); }
+			if($aRow["io"]==1) {
+				if($mRow["fName"] != "Master" && $mRow["lName"] != "Key") {
+					printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td>", $mRow["fName"], $mRow["lName"]);
+				}
 			}
-			if($aRow["io"]==0){$io="Out";}
-			else if($aRow["io"]==1){$io="In";}
-			else{$io="-";}
-		        printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td>",
-		           $aRow["entryDate"], $mRow["fName"], $mRow["lName"], $io);
-		     }
 		     mysql_free_result($result);
 		     mysql_close();
 		  }

@@ -2,17 +2,18 @@
 
 	function Connection(){
 		$server="localhost";
-		$user="PLACEHOLDER_User";
-		$pass="PLACEHOLDER_Pass";
-		$db="PLACEHOLDER_DB";
+		$user="root";
+		$pass="godbot";
+		$db="SPORKdata";
 	   	
+		$connection = mysql_connect($server, $user, $pass);
 
-		$mysqli = new mysqli($server, $user, $pass, $db);
-
-		if ($mysqli->connect_errno) {
-			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+		if (!$connection) {
+	    	die('MySQL ERROR: ' . mysql_error());
 		}
+		
+		mysql_select_db($db) or die( 'MySQL ERROR: '. mysql_error() );
 
-		return $mysqli;
+		return $connection;
 	}
 ?>
