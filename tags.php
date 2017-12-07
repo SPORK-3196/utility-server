@@ -21,7 +21,7 @@
    <div id="tablebody">
       <h1>Register Tag</h1>
 	<form action="registerTag.php" method="post">
-		ID: <input type="number" name="id" min="1" max="11"> <br>
+		ID: <input type="number" name="id" min="1" max="99"> <br>
 		First Name: <input type="text" name="fName" maxlength="16"> <br>
 		Last Name: <input type="text" name="lName" maxlength="16">
 		<input type="submit">

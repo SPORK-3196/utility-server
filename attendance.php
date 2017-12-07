@@ -34,6 +34,11 @@
 		Search: <input type="text" name="s">
 	</form>
 
+<!--	<form action="clearAttendance.php" method="post">
+		<input type="submit" value="Clear All">
+	</form>
+-->
+
    <div id="tablebody">
       <h1>Attendance Log</h1>
 

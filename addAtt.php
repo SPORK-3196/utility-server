@@ -27,9 +27,17 @@
 	$result = mysql_query($query,$link);
 	if($result!==FALSE) {
 		$row = mysql_fetch_array($result);
-		if($row["io"]==0){$io=1;}
-		else if($row["io"]==1){$io=0;}
-		else {$io=0;}
+		if($row["io"]==0) {
+			$io=1;
+		}
+		else if($row["io"]==1) {
+			$io=0;
+		}
+		else {
+			$io=0;
+		}
+
+		mysql_query("UPDATE members SET inShop='$io' WHERE id=$memberID");
 	} else {
 		$io=2;
 	}
@@ -86,3 +94,4 @@
 	mysql_free_result($result);
 	mysql_close($link);
 ?>
+
