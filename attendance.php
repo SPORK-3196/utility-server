@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <?php
+	include("util.php");
 
-	include("connect.php");
+	$sql = SQL::get_connection();
 
-	$link=Connection();
-	$key = 0;
+	$attendanceEntriesResult = FALSE;
 
-	if($_GET["s"]=="") {
-		$aResult=mysql_query("SELECT * FROM `AttendanceData` ORDER BY `id` DESC",$link);
-	} else {
-		$r=mysql_query("SELECT * FROM `members` WHERE fName='".$_GET["s"]."'",$link);
-		if($r!==FALSE) {
-			$rRow = mysql_fetch_array($r);
-			$key = $rRow["id"];
-		}
-		$aResult=mysql_query("SELECT * FROM `AttendanceData` WHERE memberID='".$key."' ORDER BY `entryDate` DESC",$link);
-	}
+	if (isset($_GET["memID"]))
+		$attendanceEntriesResult = $sql->query(
+			"SELECT * FROM AttendanceData WHERE memberID=$_GET[memID] ORDER BY id DESC"
+		);
+	else
+		$attendanceEntriesResult = $sql->query(
+			"SELECT * FROM AttendanceData ORDER BY id DESC"
+		);
 ?>
 
 <html>
@@ -28,48 +26,59 @@
 
 
 <body>
-<?php include("header.php"); ?>
+	<?php include("header.php"); ?>
 
 	<form action="attendance.php" method="get">
 		Search: <input type="text" name="s">
 	</form>
 
-<!--	<form action="clearAttendance.php" method="post">
-		<input type="submit" value="Clear All">
-	</form>
--->
 
-   <div id="tablebody">
-      <h1>Attendance Log</h1>
 
-      <table class="data">
-		<tr>
-			<td>&nbsp;Timestamp&nbsp;</td>
-			<td>&nbsp;First Name&nbsp;</td>
-			<td>&nbsp;Last Name&nbsp;</td>
-			<td>&nbsp;In/Out&nbsp;</td>
-		</tr>
+	<div id="tablebody">
+		<h1>Attendance Log</h1>
 
-         <?php
-		  if($aResult!==FALSE) {
-		     while($aRow = mysql_fetch_array($aResult)) {
-			$mResult=mysql_query("SELECT * FROM `members` WHERE id=$aRow[memberID]",$link);
-			if($mResult!==FALSE) {
-				$mRow = mysql_fetch_array($mResult);
-			}
-			if($aRow["io"]==0){$io="Out";}
-			else if($aRow["io"]==1){$io="In";}
-			else{$io="-";}
-		        printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td>",
-		           $aRow["entryDate"], $mRow["fName"], $mRow["lName"], $io);
-		     }
-		     mysql_free_result($result);
-		     mysql_close();
-		  }
-         ?>
+		<?php
+			// If mysqli->query() returned false, there was an invalid query
+			if ($attendanceEntriesResult === FALSE)
+				die ("<p class=\"error\">Invalid query</p>");
 
-      </table>
-   </div>
+			// Add a hint telling the number of results found
+			echo ("<p class=\"hint\">");
+			if ($attendanceEntriesResult->num_rows === 0)
+				die ("No results found</p>");
+			else
+				echo ($attendanceEntriesResult->num_rows." results found</p>");
+		?>
+
+
+
+		<table class="data">
+			<tr>
+				<td>Timestamp</td>
+				<td>First Name</td>
+				<td>Last Name</td>
+				<td>In/Out</td>
+			</tr>
+
+			<?php
+				// Iterate through every Attendance Entry
+				while($entry = $attendanceEntriesResult->fetch_assoc())
+				{
+					// Loads member associated with the ID in the entry
+					$member = Member::SQL_Load_Member_ID($entry["memberID"]);
+
+					// Skip to next member if this one's invalid
+					if($member===FALSE)
+						continue;
+
+					// Converts the entry's 1/0
+
+					printf("<tr><td> %s </td><td> %s </td><td> %s </td><td> %s </td>",
+						$entry["entryDate"], $member->firstName, $member->lastName, ucfirst($entry["io"]));
+				}
+			?>
+		</table>
+	</div>
 
 </body>
 </html>

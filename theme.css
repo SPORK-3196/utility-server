@@ -1,6 +1,20 @@
-/*
- * This file defines Data table styling, mainly for php output
- */
+/********************/
+/* VARIOUS STYLINGS */
+/********************/
+p.error {
+	color: #d32300;
+	font-style: italic;
+}
+p.hint {
+	color: #444444;
+	font-style: italic;
+}
+
+
+
+/**********************/
+/* DATA TABLE STYLING */
+/**********************/
 /* The body of the page */
 div#tablebody {
 	margin-left: 2.5%;
@@ -91,5 +105,5 @@ input[type="submit"] {
 @keyframes box_slide {
 	0%	{ margin-right: -25%; }
 	50%	{ margin-right: -25%; }
-	100%	{ margin-right: 2.5%%; }
+	100%	{ margin-right: 2.5%; }
 }
