@@ -44,8 +44,6 @@ class Member
 	 */
 	function __construct() {
 		$this->sql_id		= null;
-		$this->tag_id		= null;
-		$this->tag_value	= null;
 		$this->firstName	= null;
 		$this->lastName		= null;
 		$this->signed_in	= null;
