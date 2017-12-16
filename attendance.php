@@ -6,14 +6,17 @@
 
 	$attendanceEntriesResult = FALSE;
 
-	if (isset($_GET["memID"]))
-		$attendanceEntriesResult = $sql->query(
-			"SELECT * FROM AttendanceData WHERE memberID=$_GET[memID] ORDER BY id DESC"
-		);
-	else
-		$attendanceEntriesResult = $sql->query(
-			"SELECT * FROM AttendanceData ORDER BY id DESC"
-		);
+	// If a member ID is given to the page, load only attendance records from
+	// that particular member. Otherwise, load records for all members.
+	$WHERE_cond = ((isset($_GET["memID"])) ?
+					"WHERE memberID=$_GET[memID] " : " ");
+	$attendanceEntriesResult = $sql->query(
+		"SELECT *
+		FROM AttendanceData
+		$WHERE_cond
+		ORDER BY id DESC;"
+	);
+	unset($WHERE_cond);
 ?>
 
 <html>
