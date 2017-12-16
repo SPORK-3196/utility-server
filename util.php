@@ -31,8 +31,6 @@ class SQL
 class Member
 {
 	var $sql_id;	// Member's unique id in MySQL Database
-	var $tag_id;	// The unique MySQL id of the member's tag
-	var $tag_value;	// The scanner value of the user's tag
 
 	var $firstName;
 	var $lastName;
@@ -140,25 +138,19 @@ class Member
 
 		// Query for users with like names
 		$user_matches = $sql->query(
-			"SELECT *
+			"SELECT id
 			FROM members
 			WHERE fName LIKE '%$first%' AND lName LIKE '%$last%'
 			LIMIT 1;");
-
+		
 		// False if no matches
 		if ($user_matches->num_rows == 0)
 			return false;
 
-		// Take the first match, return it
-		$entry = $user_matches->fetch_assoc();
-		$mem = new Member;
-
-		$mem->sql_id 		= $entry["id"];
-		$mem->firstName 	= $entry["fName"];
-		$mem->lastName		= $entry["lName"];
-		$mem->signed_in		= $entry["inShop"];
-
-		return $mem;
+		// Get the member's ID, then pass it to SQL_Load_Member_ID and return
+		// the results
+		$id = $user_matches->fetch_assoc()['id'];
+		return Member::SQL_Load_Member_ID($id);
 	}
 
 	/**
@@ -181,31 +173,9 @@ class Member
 		if ($tag_matches->num_rows == 0)
 			return false;
 
-		// Set the member's tag information
-		$tagEntry = $tag_matches->fetch_assoc();
-		$mem = new Member;
-
-		$mem->tag_id		= $tagEntry["tagID"];
-		$mem->tag_value		= $tagEntry["tagValue"];
-		$mem->sql_id		= $tagEntry["memberID"];
-
-
-	
-		// Query for the member represented by the id
-		$user_matches = $sql->query("SELECT * FROM members WHERE id=\"$mem->sql_id\";");
-
-		// False if we don't find a matching member
-		if ($user_matches->num_rows !== 1)
-			return false;
-
-		// Set the member's personal information
-		$membEntry = $user_matches->fetch_assoc();
-
-		$mem->firstName		= $membEntry["fName"];
-		$mem->lastName		= $membEntry["lName"];
-		$mem->signed_in		= $membEntry["inShop"];
-
-		return $mem;
+		// Get the member's ID, load the member by that ID and return results
+		$id = $tag_matches->fetch_assoc()['memberID'];
+		return Member::SQL_Load_Member_ID($id);
 	}
 }
 ?>
@@ -228,7 +198,7 @@ class Member
 		echo ("User 1: ".$user->sql_id." ".$user->firstName." ".$user->lastName." ".$user->signed_in."<br/>");
 
 
-		$user2 = Member::SQL_Load_Member_Name("p", "a");
+		$user2 = Member::SQL_Load_Member_Name("j", "c");
 		//if ($user2 === false) die("RIPPERONI");
 		echo ("User 2: ".$user2->sql_id." ".$user2->firstName." ".$user2->lastName." ".$user2->signed_in."<br/>");
 
