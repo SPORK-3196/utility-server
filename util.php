@@ -102,7 +102,11 @@ class Member
 		$sql = SQL::get_connection();
 		
 		// Query for user with id
-		$user_matches = $sql->query("SELECT * FROM members WHERE id=$ID;");
+		$user_matches = $sql->query(
+			"SELECT *
+			FROM members
+			WHERE id=$ID
+			LIMIT 1;");
 
 		// False if no matches
 		if ($user_matches->num_rows == 0)
@@ -167,7 +171,11 @@ class Member
 		$sql = SQL::get_connection();
 
 		// Query for the matching tag
-		$tag_matches = $sql->query("SELECT * FROM tags WHERE tagValue=\"$tagValue\";");
+		$tag_matches = $sql->query(
+			"SELECT memberID
+			FROM tags
+			WHERE tagValue=\"$tagValue\"
+			LIMIT 1;");
 
 		// False if a tag couldn't be found
 		if ($tag_matches->num_rows == 0)
