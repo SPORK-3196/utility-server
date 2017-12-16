@@ -4,10 +4,14 @@
 p.error {
 	color: #d32300;
 	font-style: italic;
+	border-left: 4px solid #d32300;
+	padding-left: 4px;
 }
 p.hint {
 	color: #444444;
 	font-style: italic;
+	border-left: 4px solid #444444;
+	padding-left: 4px;
 }
 
 
@@ -66,10 +70,10 @@ table.data tr td:hover {
 }
 
 
-/************************/
-/* BATTERY FORM STYLING */
-/************************/
-/* If the screen is large enough, make form box anchored to the right*/
+/*************************/
+/* FLOATING FORM STYLING */
+/*************************/
+/* If the screen is large enough, make form box anchored to the right */
 @media screen and (min-width: 1400px){
 	#formbox {
 		float: right;
