@@ -14,7 +14,7 @@ echo <<< HEADER_END
 		</li>
 	</ul>
 
-	<form action="/search.php" method="GET">
+	<form action="search.php" method="GET">
 		<input name="q" type="text" placeholder="Search">
 	</form>
 </div>
