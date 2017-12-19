@@ -19,7 +19,7 @@
 
 
 			// If mysqli->query() returned false, there was an invalid query
-			if ($idList === FALSE)
+			if ($idList === false)
 				die ("<p class=\"error\">Internal query error</p>");
 			
 			// If no users are found, leave an error

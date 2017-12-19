@@ -21,11 +21,11 @@
 
 <body>
 	<?php include("header.php"); ?>
-	
+
 	<div id="formbox">
 		<h1>Add Entry</h1>
 		
-		<form action="add.php" method="post">
+		<form action="addBatt.php" method="post">
 			Class: <input type="text" name="class" maxlength="1">
 			ID: <input type="number" name="id" min="0" max="15"> <br/>
 			Status: <input type="radio" name="status" value=0> Good
@@ -56,7 +56,7 @@
 
 		<?php
 			// If mysqli->query() returned false, there was an invalid query
-			if ($batteryEntryResults === FALSE)
+			if ($batteryEntryResults === false)
 				die ("<p class=\"error\">Invalid query</p>");
 
 			// Add a hint telling the number of results found

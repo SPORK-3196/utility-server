@@ -4,7 +4,7 @@
 
 	$sql = SQL::get_connection();
 
-	$attendanceEntriesResult = FALSE;
+	$attendanceEntriesResult = false;
 
 	// If a member ID is given to the page, load only attendance records from
 	// that particular member. Otherwise, load records for all members.
@@ -55,7 +55,7 @@
 
 		<?php
 			// If mysqli->query() returned false, there was an invalid query
-			if ($attendanceEntriesResult === FALSE)
+			if ($attendanceEntriesResult === false)
 				die ("<p class=\"error\">Invalid query</p>");
 
 			// Add a hint telling the number of results found
@@ -84,12 +84,11 @@
 					$member = Member::SQL_Load_Member_ID($entry["memberID"]);
 
 					// Skip to next member if this one's invalid
-					if($member===FALSE)
+					if($member === false)
 						continue;
 
-					// Converts the entry's 1/0
-
-					printf("<tr><td> %s </td><td> %s </td><td> %s </td><td> %s </td>",
+					// Prints the table row
+					printf("\t\t\t<tr><td> %s </td><td> %s </td><td> %s </td><td> %s </td></tr>\n",
 						$entry["entryDate"], $member->firstName, $member->lastName, ucfirst($entry["io"]));
 				}
 			?>
