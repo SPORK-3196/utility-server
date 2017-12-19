@@ -35,7 +35,20 @@
 		Search: <input type="text" name="s">
 	</form>
 
-
+	<div id="formbox">
+		<h1>Sign In/Out</h1>
+		
+		<form action="addAtt.php" method="post">
+			Member ID: <input type="number" name="memID" min="0"> <br/>
+			Output Type:
+			<select name="output">
+				<option value="redirect">None</option>
+				<option value="formatted">Arduino</option>
+				<option value="json">JSON</option>
+			</select>
+			<input type="submit">
+		</form>
+	</div>
 
 	<div id="tablebody">
 		<h1>Attendance Log</h1>
