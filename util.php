@@ -8,10 +8,11 @@
 class SQL
 {
 	/**
-	 * Forms a connection to the local SPORKdata database
+	 * Forms a connection to the local SPORKdata database. Program will die if
+	 * this function fails.
 	 *
 	 * @return mysqli 	Returns a mysqli object that is connected to the SQL
-	 * 					database
+	 * 					database.
 	 */
 	static function get_connection() {
 		// Create a new MySQL Connection
@@ -79,6 +80,60 @@ class Member
 			$this->signed_in = $lastEntry->fetch_assoc()['io'] == 'in';
 	}
 
+	/**
+	 * Signs out this user by generating a new Attendance record. If the user
+	 * is already signed out, nothing will happen.
+	 *
+	 * @return void
+	 */
+	function Sign_Out()
+	{
+		// Get a SQL connection
+		$sql = SQL::get_connection();
+
+		// Make sure data is up-to-date
+		$this->Refresh_Sign_Status();
+
+		// If the user is signed in, create a new record to sign them out
+		if ($this->signed_in) {
+			$sql->query(
+				"INSERT INTO AttendanceData
+					(memberID, io)
+				VALUES
+					($this->sql_id,	'out');");
+
+			// Resync user's sign status with database
+			$this->Refresh_Sign_Status();
+		}
+	}
+	
+	/**
+	 * Signs this user in by generating a new Attendance record. If the user
+	 * is already signed in, nothing will happen.
+	 *
+	 * @return void
+	 */
+	function Sign_In()
+	{
+		// Get a SQL connection
+		$sql = SQL::get_connection();
+
+		// Make sure data is up-to-date
+		$this->Refresh_Sign_Status();
+
+		// If the user is signed out, create a new record to sign them in
+		if (!$this->signed_in) {
+			$sql->query(
+				"INSERT INTO AttendanceData
+					(memberID, io)
+				VALUES
+					($this->sql_id,	'in');");
+
+			// Resync user's sign status with database
+			$this->Refresh_Sign_Status();
+		}
+	}
+
 
 
 	/**
@@ -86,7 +141,7 @@ class Member
 	 *
 	 * @param uint $id			Member's ID
 	 * @return Member			Returns a Member variable populated with all
-	 * 							the member's information. Returns false is no
+	 * 							the member's information. Returns false if no
 	 * 							match was found.
 	 */
 	static function SQL_Load_Member_ID($ID)
@@ -204,7 +259,7 @@ class Member
 		echo ("User 2: ".$user2->sql_id." ".$user2->firstName." ".$user2->lastName." ".$user2->signed_in."<br/>");
 
 		$user3 = Member::SQL_Load_Member_ID(3);
-		echo ("User 3: ".$user3->sql_id." ".$user3->firstName." ".$user3->lastName." ".$user3->signed_in);
+		echo ("User 3: ".$user3->sql_id." ".$user3->firstName." ".$user3->lastName." ".$user3->signed_in."<br/>");
 	?>
 
 </body>
