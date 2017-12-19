@@ -66,7 +66,7 @@ class Member
 			"SELECT io
 			FROM AttendanceData
 			WHERE memberID=$this->sql_id
-			ORDER BY entryDate DESC
+			ORDER BY id DESC
 			LIMIT 1;");
 		
 		// If no record was found, set signed_in to null to indicate unknown
@@ -77,11 +77,6 @@ class Member
 		// be 'in' or 'out')
 		else
 			$this->signed_in = $lastEntry->fetch_assoc()['io'] == 'in';
-		
-
-		
-		// Update members' cached copy? TODO: Determine if needed and fix
-		//mysql_query("UPDATE members SET inShop='$io' WHERE id=$memberID");
 	}
 
 
@@ -188,8 +183,8 @@ class Member
 
 
 
-<!-- Some debug html and css -->
-<?php if (true) { ?>
+<?php if ($_GET["debug"]) { ?>
+<!-- Some debug html and php.  -->
 <!DOCTYPE html>
 <html>
 <head>
