@@ -33,16 +33,16 @@
 
 
 	// Prints information depending on the output settings
-	if ($_POST["output"] == "redirect" || !isset($_POST["output"])) {
-		// Default, redirects to the attendance page.
+	if ($_POST["output"] == "formatted" || $_POST["output"] == "" || !isset($_POST["output"])) {
+		// Default, formatted for Arduino
+		echo ($member->firstName."\n".
+		$member->lastName."\r".
+		(($member->signed_in == true) ? "1" : "0"));
+	}
+	else if ($_POST["output"] == "redirect") {
+		// Redirects to the attendance page.
 		header("Location: attendance.php");
 		exit();
-	}
-	else if ($_POST["output"] == "formatted") {
-		// Formatted for Arduino
-		echo ($member->firstName."\n".
-			$member->lastName."\r".
-			$io);
 	}
 ?>
 

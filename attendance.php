@@ -42,8 +42,9 @@
 			Member ID: <input type="number" name="memID" min="0"> <br/>
 			Output Type:
 			<select name="output">
-				<option value="redirect">None</option>
+				<option value="redirect">Normal</option>
 				<option value="formatted">Arduino</option>
+				<option value="">None</option>
 				<option value="json">JSON</option>
 			</select>
 			<input type="submit">
