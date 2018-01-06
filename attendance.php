@@ -68,7 +68,7 @@
 				<option value="">None</option>
 				<option value="json">JSON</option>
 			</select>
-			<input type="submit">
+			<input type="submit" value="Sign In/Out">
 		</form>
 	</div>
 
