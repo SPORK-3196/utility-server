@@ -17,8 +17,34 @@
 		die ("No member id given");
 
 	// Leave an error message if the member wasn't able to be loaded
-	if ($member === false) die ("Bad DB - Member not found");
+	if ($member === false) {
+		echo "Not found:\n";
+		die ($_POST["tagID"]);
+	}
 
+
+	if($member->firstName == "Master" && $member->lastName == "Key") {
+		$idList = $sql->query("SELECT id FROM members");
+
+		// If mysqli->query() returned false, there was an invalid query
+		if ($idList === false)
+			die ("<p class=\"error\">Internal query error</p>");
+		
+		// If no users are found, leave an error
+		else if ($idList->num_rows === 0)
+			die ("<p class=\"error\">No users in database</p>");
+		
+		while($memberID = $idList->fetch_assoc()['id'])
+		{
+			$member = Member::SQL_Load_Member_ID($memberID);
+			$member->Refresh_Sign_Status();
+			if($member->signed_in == 1) {
+				$member->Sign_Out();
+			}
+		}
+
+		die("Everyone\nsigned out");
+	}
 
 
 	// Refresh the user's sign in status

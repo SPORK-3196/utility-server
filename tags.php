@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-	include("connect.php");
+	include("utils.php");
 
 	$link=Connection();
 ?>

@@ -40,7 +40,7 @@
 				{
 					$member = Member::SQL_Load_Member_ID($memberID);
 					$member->Refresh_Sign_Status();
-					if($member->signed_in) {
+					if($member->signed_in == 1) {
 						echo "<tr> <td>$member->firstName</td> <td>$member->lastName</td> </tr>";
 					}
 				}
