@@ -39,7 +39,28 @@
 		<h1>Sign In/Out</h1>
 		
 		<form action="addAtt.php" method="post">
-			Member ID: <input type="number" name="memID" min="0"> <br/>
+			Member: 
+			<select name="memID">
+				<?php
+				$membersResult = $sql->query("SELECT * FROM members ORDER BY id ASC");
+
+				if($membersResult === FALSE) echo("<option value='-1'>Error</option>");
+				else if ($membersResult->num_rows == 0) echo("<option value='-1'>No members</option>");
+				else {
+					while($memberEntry = $membersResult->fetch_assoc()) {
+						if($memberEntry === false) continue;
+
+						echo "<option value='";
+						echo $memberEntry["id"];
+						echo "'>";
+						echo $memberEntry["fName"];
+						echo " ";
+						echo $memberEntry["lName"];
+						echo "</option>";
+					}
+				}
+				?>
+			</select> <br/>
 			Output Type:
 			<select name="output">
 				<option value="redirect">Normal</option>
