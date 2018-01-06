@@ -70,5 +70,10 @@
 		header("Location: attendance.php");
 		exit();
 	}
+	else if ($_POST["output"] == "redirectLive") {
+		// Redirects to the attendance page.
+		header("Location: liveAttendance.php");
+		exit();
+	}
 ?>
 

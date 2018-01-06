@@ -111,3 +111,16 @@ input[type="submit"] {
 	50%	{ margin-right: -25%; }
 	100%	{ margin-right: 2.5%; }
 }
+
+/*******************************************/
+/* FLOATING FORM STYLING WITHOUT ANIMATION */
+/*******************************************/
+/* If the screen is large enough, make form box anchored to the right without animation */
+@media screen and (min-width: 1400px){
+	#formbox_noanim {
+		float: right;
+		margin-right: 2.5%;
+		margin-left: 2.5%;
+		width: auto;
+	}
+}
