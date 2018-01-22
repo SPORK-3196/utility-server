@@ -5,11 +5,10 @@ echo <<< HEADER_END
 	<ul id="navmenu">
 		<li><a href="index.php">Home</a></li>
 		<li><a href="batteries.php">Batteries</a></li>
-		<li><a href="attendance.php">Attendance</a></li>
-		<li class="dropdown"><a href="#" class="dropbtn">Dropdown Test</a>
+		<li class="dropdown"><a href="#" class="dropbtn">Attendance</a>
 			<div>
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
+				<a href="liveAttendance.php">Live</a>
+				<a href="attendance.php">History</a>
 			</div>
 		</li>
 	</ul>
