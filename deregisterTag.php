@@ -1,8 +1,10 @@
 <?php
-	include("connect.php");
-	$link=Connection();
+	include("util.php");
+	$sql = SQL::get_connection();
 
-	echo "$tRow[tagID]";
-	$result = mysql_query("UPDATE `members` SET tagID=0 WHERE fName=\"$_POST[fName]\" AND lName=\"$_POST[lName]\"",$link);
-	header("Location: /tags.php");
+	echo "$_POST[tagID]";
+
+	$sql->query("UPDATE tags SET memberID=NULL WHERE id=$_POST[tagID]");
+	
+	header("Location: /server/tags.php");
 ?>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <?php
+	include("util.php");
 
-	include("utils.php");
-
-	$link=Connection();
+	$sql = SQL::get_connection();
 ?>
 
 <html>
@@ -18,45 +17,58 @@
 <body>
 <?php include("header.php"); ?>
 
-   <div id="tablebody">
-      <h1>Register Tag</h1>
-	<form action="registerTag.php" method="post">
-		ID: <input type="number" name="id" min="1" max="99"> <br>
-		First Name: <input type="text" name="fName" maxlength="16"> <br>
-		Last Name: <input type="text" name="lName" maxlength="16">
-		<input type="submit">
-	</form>
+	<div id="tablebody">
+		<h1>Register Tag</h1>
 
-      <h1>Deregister Tag</h1>
-	<form action="deregisterTag.php" method="post">
-		First Name: <input type="text" name="fName" maxlength="16"> <br>
-		Last Name: <input type="text" name="lName" maxlength="16">
-		<input type="submit">
-	</form>
+		<form action="registerTag.php" method="post">
+			Tag ID: <input type="number" name="tagID" min="1" max="99"> <br>
+			Member: <select name="memID">
+			<?php
+				$membersResult = $sql->query("SELECT * FROM members ORDER BY lName ASC");
 
-      <h1>Tag List</h1>
+				if($membersResult === FALSE) echo("<option value='-1'>Error</option>");
+				else if ($membersResult->num_rows == 0) echo("<option value='-1'>No members</option>");
+				else {
+					while($memberEntry = $membersResult->fetch_assoc()) {
+						if($memberEntry === false) continue;
 
-      <table class="data">
+						echo "<option value='";
+						echo $memberEntry["id"];
+						echo "'>";
+						echo $memberEntry["fName"];
+						echo " ";
+						echo $memberEntry["lName"];
+						echo "</option>";
+					}
+				}
+			?>
+		</select>
+			<input type="submit">
+		</form>
+
+		<h1>Deregister Tag</h1>
+		<form action="deregisterTag.php" method="post">
+			Tag ID: <input type="number" name="tagID" min="1" max="99">
+			<input type="submit">
+		</form>
+
+		<h1>Tag List</h1>
+
+		<table class="data">
 		<tr>
-			<td>&nbsp;ID&nbsp;</td>
-			<td>&nbsp;First Name&nbsp;</td>
-			<td>&nbsp;Last Name&nbsp;</td>
-			<td>&nbsp;Long ID&nbsp;</td>
+			<td>ID</td><td>First Name</td><td>Last Name</td><td>Long ID</td>
 		</tr>
 
-         <?php
-	     $result=mysql_query("SELECT * FROM `tags`",$link);
-	     if($result!==FALSE) {
-		while($row = mysql_fetch_array($result)) {
-			$mResult=mysql_query("SELECT * FROM `members` WHERE tagID=$row[tagID]",$link);
-			$mRow = mysql_fetch_array($mResult);
-	        	printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td>",
-           		   $row["id"], $mRow["fName"], $mRow["lName"], $row["tagID"]);
+	<?php
+		$tagResult = $sql->query("SELECT * FROM tags;");
+		if($tagResult === FALSE) die("Query error #1");
+
+		while($tagRow = $tagResult->fetch_assoc()) {
+			$member = Member::SQL_Load_Member_ID($tagRow["memberID"]);
+
+			echo "<tr><td>$tagRow[id]</td><td>$member->firstName</td><td>$member->lastName</td><td>$tagRow[tagValue]</td>";
 		}
-	     }
-	     mysql_free_result($result);
-	     mysql_close();
-         ?>
+	?>
 
       </table>
    </div>
