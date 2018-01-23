@@ -31,19 +31,24 @@
 			die ("<p class=\"error\">Internal query error</p>");
 		
 		// If no users are found, leave an error
-		else if ($idList->num_rows === 0)
+		if ($idList->num_rows === 0)
 			die ("<p class=\"error\">No users in database</p>");
 		
-		while($memberID = $idList->fetch_assoc()['id'])
+		$count = 0;
+		echo "!";
+		while($memberRow = $idList->fetch_assoc())
 		{
-			$member = Member::SQL_Load_Member_ID($memberID);
+			echo ".";
+			$member = Member::SQL_Load_Member_ID($memberRow["id"]);
 			$member->Refresh_Sign_Status();
 			if($member->signed_in == 1) {
 				$member->Sign_Out();
+				$count++;
 			}
 		}
 
-		die("Everyone\nsigned out");
+		if($count == 1) die("1 member\nsigned out");
+		else die("$count members\nsigned out");
 	}
 
 
