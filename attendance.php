@@ -42,7 +42,7 @@
 			Member: 
 			<select name="memID">
 				<?php
-				$membersResult = $sql->query("SELECT * FROM members ORDER BY id ASC");
+				$membersResult = $sql->query("SELECT * FROM members ORDER BY lName ASC");
 
 				if($membersResult === FALSE) echo("<option value='-1'>Error</option>");
 				else if ($membersResult->num_rows == 0) echo("<option value='-1'>No members</option>");
