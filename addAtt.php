@@ -35,10 +35,8 @@
 			die ("<p class=\"error\">No users in database</p>");
 		
 		$count = 0;
-		echo "!";
 		while($memberRow = $idList->fetch_assoc())
 		{
-			echo ".";
 			$member = Member::SQL_Load_Member_ID($memberRow["id"]);
 			$member->Refresh_Sign_Status();
 			if($member->signed_in == 1) {
