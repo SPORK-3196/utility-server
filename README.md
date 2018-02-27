@@ -1,12 +1,9 @@
-# README #
+# About Utility Server #
+Utility Server is a LAMP (Linux, Apache, MySQL, PHP) server that Team SPORK uses to host and operate our workshop intranet.
 
-### About ###
-Pi Server is the Raspberry Pi LAMP server that ties together the subsystems of the SPORKshop.
-* Version 1.0.0
-
-### Setting it up ###
-* Install a Raspbian build on a Raspberry Pi
+### Setup ###
+* Install Linux
+  * We use Ubuntu running on an old desktop, but Raspbian on a Pi works well also
 * Install Apache, PHP, and MySQL
-* Place Pi Server source files in /var/www/html/ directory
-
-The Pi Server is now ready to be used. Make sure all subsystems have been configured properly for the Pi's IP Address.
+* Place the Server source files in /var/www/html/ directory
+  * Alternatively, it is possible to use a symbolic link to the repository
